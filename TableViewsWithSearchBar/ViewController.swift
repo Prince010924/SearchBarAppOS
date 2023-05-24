@@ -258,7 +258,12 @@ class ViewController: UIViewController {
 
 extension ViewController: UITableViewDataSource , UITabBarDelegate{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return filteredData.count
+        if(searching){
+            return filteredData.count
+        }
+        else{
+            return animals.count
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
