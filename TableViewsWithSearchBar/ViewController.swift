@@ -251,26 +251,31 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view.
         filteredData = animals
         
+        
     }
 
-
-}
-
-extension ViewController: UITableViewDataSource , UITabBarDelegate , UITableViewDelegate{
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if(searching){
-            return filteredData.count
+    extension ViewController: UITableViewDataSource , UITabBarDelegate , UITableViewDelegate{
+        func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+            if(searching){
+                return filteredData.count
+            }
+            else{
+                return animals.count
+            }
         }
-        else{
-            return animals.count
-        }
+        
+        func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+            
+            if searching == true {
+                cell.textLabel?.text = filteredData[indexPath.row]
+            }
+            else{
+                cell.textLabel?.text = animals[indexPath.row]
+            }
+            return cell
     }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel?.text = filteredData[indexPath.row]
 
-        return cell
     }
     
     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
@@ -278,11 +283,12 @@ extension ViewController: UITableViewDataSource , UITabBarDelegate , UITableView
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        tableView.beginUpdates()
-        animals.remove(at: indexPath.row)
-        tableView.deleteRows(at: [indexPath], with: .fade)
-        tableView.endUpdates()
-    }
+        if editingStyle == .delete {
+            tableView.beginUpdates()
+            filteredData.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+            tableView.endUpdates()
+        }}
     
     
     
@@ -291,7 +297,7 @@ extension ViewController: UITableViewDataSource , UITabBarDelegate , UITableView
 
 //extension ViewController:UISearchBarDelegate
 //{
-//    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+//  func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
 //
 //        filteredData = searchText.isEmpty ? animals : animals.filter { (item: String) -> Bool in
 //            // If dataItem matches the searchText, return true to include it
