@@ -234,7 +234,7 @@ class ViewController: UIViewController {
         "Yak",
         "Zebra"
     ]
-
+    
     @IBOutlet weak var tableView: UITableView!
     
     @IBOutlet weak var searchBar: UISearchBar!
@@ -253,8 +253,9 @@ class ViewController: UIViewController {
         
         
     }
+}
 
-    extension ViewController: UITableViewDataSource , UITabBarDelegate , UITableViewDelegate{
+extension ViewController: UITableViewDataSource , UITabBarDelegate ,UITableViewDelegate{
         func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
             if(searching){
                 return filteredData.count
