@@ -6,6 +6,7 @@
 //
 
 import UIKit
+var filteredData: [String]!
 
 class ViewController: UIViewController {
     var animals = [
@@ -239,7 +240,7 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var searchBar: UISearchBar!
     
-    var filteredData: [String]!
+   
     
     var searching = true
     
@@ -253,7 +254,11 @@ class ViewController: UIViewController {
         
         
     }
+    
 }
+    
+    
+
 
 extension ViewController: UITableViewDataSource , UITabBarDelegate ,UITableViewDelegate{
         func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -289,7 +294,7 @@ extension ViewController: UITableViewDataSource , UITabBarDelegate ,UITableViewD
             filteredData.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
             tableView.endUpdates()
-        }}
+        }
     
     
     
