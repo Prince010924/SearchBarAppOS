@@ -256,7 +256,7 @@ class ViewController: UIViewController {
 
 }
 
-extension ViewController: UITableViewDataSource , UITabBarDelegate{
+extension ViewController: UITableViewDataSource , UITabBarDelegate , UITableViewDelegate{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if(searching){
             return filteredData.count
@@ -272,6 +272,18 @@ extension ViewController: UITableViewDataSource , UITabBarDelegate{
 
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        .delete
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        tableView.beginUpdates()
+        animals.remove(at: indexPath.row)
+        tableView.deleteRows(at: [indexPath], with: .fade)
+        tableView.endUpdates()
+    }
+    
     
     
     
